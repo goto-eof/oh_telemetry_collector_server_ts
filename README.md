@@ -11,3 +11,35 @@ See also:
 - [oh_telemetry_collector_load_test](https://github.com/goto-eof/oh_telemetry_collector_load_test)
 - [oh_telemetry_collector_server_java](https://github.com/goto-eof/oh_telemetry_collector_server_java)
 - [oh_telemetry_collector_server_rust](https://github.com/goto-eof/oh_telemetry_collector_server_rust)
+- [oh_telemetry_collector_server_ts](https://github.com/goto-eof/oh_telemetry_collector_server_ts)
+
+### Run 
+
+```bash
+docker-compose up
+```
+
+### Run only DBMS
+
+```bash
+docker-compose -f docker-compose-dbms.yml up
+```
+
+### Use postman collection for making requests
+
+Import postman.json
+
+### The server responds on
+
+```
+http://localhost:8019/collect
+```
+
+
+### DB connection
+
+```
+postgres://127.0.0.1:5439/postgres
+username: postgres
+password: postgres
+```
