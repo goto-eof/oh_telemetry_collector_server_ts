@@ -1,6 +1,6 @@
-#### POC | Open Hospital - Telemetry Collector Server (TypeScript)
+#### Telemetry Collector Server (TypeScript) (WIP)
 
-I created this application with the intention of comparing three different languages (with similar technologies) performance by doing workload tests.
+It is one of the three applications on which will be carried out performance tests in order to determine which are the most performing technologies. This is the TypeScript version. 
 
 <p align="center" width="100%">
     <img width="50%" src="dev-stack.png"> 
