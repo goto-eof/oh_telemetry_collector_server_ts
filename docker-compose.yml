@@ -1,0 +1,36 @@
+version: '3.6'
+
+services:
+  telemetry-collector-server:
+    container_name: oh_telemetry_collector_server_ts
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - '127.0.0.1:8019:8019'
+    links:
+      - 'postgres-service'
+    depends_on:
+      postgres-service:
+        condition: service_healthy
+    networks:
+      - default
+  postgres-service:
+    container_name: postgres_service_ts
+    image: postgres:latest
+    ports:
+      - '5439:5439'
+    healthcheck:
+      test: ['CMD-SHELL', '/usr/bin/pg_isready -p 5439 -U postgres']
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    restart: always
+    networks:
+      - default
+    command: -p 5439

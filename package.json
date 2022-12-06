@@ -1,0 +1,30 @@
+{
+  "name": "telemetry_collector_server_ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon src/index.ts",
+    "start:prod": "node dist/index.js",
+    "create": "typeorm migration:create ./src/configuration/migration/migration",
+    "migrate": "npx typeorm-ts-node-commonjs migration:run -d src/configuration/migration.config.ts",
+    "generate:model": "npx typeorm-model-generator -h localhost -u postgres -x postgres -d postgres -p 5439 -e postgres",
+    "generate": "typeorm migration:generate -n PostRefactoring",
+    "revert": "npx typeorm-ts-node-commonjs migration:revert -d  src/migration.config.ts"
+  },
+  "author": "Andrei Dodu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.8.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.11"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
