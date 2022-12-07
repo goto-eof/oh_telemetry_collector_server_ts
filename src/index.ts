@@ -5,13 +5,25 @@ import routes from './routes';
 
 const port = process.env.SERVER_PORT;
 
-const start = () => {
+declare global {
+  namespace Express {
+    interface Request {
+      dataSource: DataSource;
+    }
+  }
+}
+
+const start = async () => {
   const app: Application = express();
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  let dataSource = await initializeDataSource();
+  app.use(async function (req, res, next) {
+    req.dataSource = dataSource;
+    next();
+  });
   app.use('/', routes);
 
-  initializeDatabase();
   initializeServer(app);
 };
 
@@ -25,7 +37,7 @@ function initializeServer(app: Application) {
   }
 }
 
-async function initializeDatabase() {
+async function initializeDataSource() {
   let connection = await new DataSource(getConfig()).initialize();
 
   (async () => {
@@ -33,6 +45,8 @@ async function initializeDatabase() {
       transaction: 'all',
     });
   })();
+
+  return connection;
 }
 
 start();

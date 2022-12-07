@@ -5,6 +5,7 @@ It is one of the three applications on which will be carried out performance tes
 <p align="center" width="100%">
     <img width="50%" src="dev-stack1.png"> 
 </p>
+Technology stack: Typescript, Express, TypeORM, Postgres
 
 See also:
 
