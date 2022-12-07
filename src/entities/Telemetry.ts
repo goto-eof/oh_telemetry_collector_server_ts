@@ -15,10 +15,10 @@ export class Telemetry extends BaseEntity {
   @Column('integer', { name: 'request_id' })
   requestId: number;
 
-  @Column('character varying', { name: 'code', length: 50 })
+  @Column('character varying', { name: 'code', length: 255 })
   code: string;
 
-  @Column('character varying', { name: 'key', length: 50 })
+  @Column('character varying', { name: 'property', length: 255 })
   key: string;
 
   @Column('character varying', { name: 'value', length: 255 })
