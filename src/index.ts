@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import { getConfig } from './configuration/datasource.config';
 import routes from './routes';
 
-const port = 8019;
+const port = process.env.SERVER_PORT;
 
 const start = () => {
   const app: Application = express();
