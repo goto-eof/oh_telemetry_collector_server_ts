@@ -11,6 +11,8 @@ export function getConfig() {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB,
+    schema: process.env.SB_SCHEMA,
+    logging: true,
     synchronize: false,
     migrations: [__dirname + '/../migration/*.{ts,js}'],
     entities: [__dirname + '/../entities/*.{ts,js}'],

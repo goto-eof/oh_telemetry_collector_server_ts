@@ -49,4 +49,33 @@ export class TelemetryService {
     const result = await query.getRawOne();
     return result.max || 0;
   }
+
+  static async getNumCompRam(dataSource: DataSource): Promise<any> {
+    const qb = await dataSource
+      .getRepository(Telemetry)
+      .createQueryBuilder('t');
+    let result = qb
+      .select('count(t.value)', 'num')
+      .addSelect('t.value')
+      .where(
+        't.requestId IN ' +
+          (await qb
+            .subQuery()
+            .addSelect('max(t2.requestId)')
+            .from(Telemetry, 't2')
+            .where("t2.property = 'hw_cpu_idientifier'")
+            .groupBy('t2.property')
+            .groupBy('t2.value')
+            .getQuery())
+      )
+      .andWhere("property = 'hw_mem_total_memory'")
+      .groupBy('code')
+      .addGroupBy('property')
+      .addGroupBy('value')
+      .orderBy('value')
+      .getRawMany();
+
+    console.log(result);
+    return result;
+  }
 }

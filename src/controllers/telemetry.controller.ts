@@ -8,4 +8,11 @@ export default class TelemetryController {
     await TelemetryService.collect(dataSource, json);
     return res.status(201).json({ status: true, result: true });
   }
+
+  static async getNumCompRam(req: Request, res: Response) {
+    const dataSource = await req.dataSource;
+    let result = await TelemetryService.getNumCompRam(dataSource);
+    console.log('RESULT: ' + result);
+    return res.status(201).json({ status: true, result });
+  }
 }
