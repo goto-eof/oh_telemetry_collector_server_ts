@@ -51,14 +51,42 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8017/num-comp-ram",
+					"raw": "http://localhost:8019/num-comp-ram",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8017",
+					"port": "8019",
 					"path": [
 						"num-comp-ram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-all",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8019/delete-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8019",
+					"path": [
+						"delete-all"
 					]
 				}
 			},
