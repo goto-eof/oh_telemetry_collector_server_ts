@@ -6,7 +6,13 @@ export default class TelemetryController {
     const json = req.body;
     const dataSource = req.dataSource;
     await TelemetryService.collect(dataSource, json);
-    return res.status(201).json({ status: true, result: true });
+    return res.status(200).json({ status: true, result: true });
+  }
+
+  static async deleteAll(req: Request, res: Response) {
+    const dataSource = req.dataSource;
+    await TelemetryService.deleteAll(dataSource);
+    return res.status(200).json({ status: true, result: true });
   }
 
   static async getNumCompRam(req: Request, res: Response) {

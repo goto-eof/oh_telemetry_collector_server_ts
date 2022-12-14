@@ -23,6 +23,10 @@ export class TelemetryService {
     return true;
   }
 
+  static async deleteAll(dataSource: DataSource): Promise<void> {
+    await dataSource.createQueryBuilder().delete().from(Telemetry).execute();
+  }
+
   private static async saveSingleTelemetry(
     entityManager: EntityManager,
     code: string,
