@@ -13,6 +13,6 @@ export default class TelemetryController {
     const dataSource = await req.dataSource;
     let result = await TelemetryService.getNumCompRam(dataSource);
     console.log('RESULT: ' + result);
-    return res.status(201).json({ status: true, result });
+    return res.status(200).json({ status: true, result });
   }
 }
