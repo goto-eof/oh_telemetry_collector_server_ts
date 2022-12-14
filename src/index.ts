@@ -2,6 +2,9 @@ import express, { Application } from 'express';
 import { DataSource } from 'typeorm';
 import { getConfig } from './configuration/datasource.config';
 import routes from './routes';
+import cluster from 'node:cluster';
+import { cpus } from 'node:os';
+import process from 'node:process';
 
 const port = process.env.SERVER_PORT;
 
@@ -13,7 +16,8 @@ declare global {
   }
 }
 
-const start = async () => {
+const startWorker = async () => {
+  console.log(`Worker ${process.pid} started`);
   const app: Application = express();
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -49,4 +53,19 @@ async function initializeDataSource() {
   return connection;
 }
 
-start();
+function startMaster() {
+  const numCPUs = cpus().length;
+  console.log(`Primary ${process.pid} is running`);
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+}
+
+if (cluster.isPrimary) {
+  startMaster();
+} else {
+  startWorker();
+}
